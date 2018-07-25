@@ -1,3 +1,24 @@
-<p>
-  pilot works!
-</p>
+<button type="button" class="btn btn-primary btn-lg btn-block">Add new pilot</button>
+
+<p *ngIf="!pilots"><em>Loading...</em></p>
+
+<table class='table' *ngIf="pilots">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Second Name</th>
+      <th>Birt date</th>
+      <th>experiance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pilot of pilots">
+      <td>{{ pilot.firstName }}</td>
+      <td>{{ pilot.secondName }}</td>
+      <td>{{ pilot.birthDay }}</td>
+      <td>{{ pilot.experiance }}</td>
+      <td><button type="button" class="btn btn-outline-warning" (click)="update(pilot.id)">Update</button></td>
+      <td><button type="button" class="btn btn-outline-danger" (click)="delete(pilot.id)">Delete</button>  </td>
+    </tr>
+  </tbody>
+</table>
