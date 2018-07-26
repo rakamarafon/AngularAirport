@@ -4,5 +4,5 @@ export class Pilot {
     firstName: string;
     secondName: string;
     birthDay: string;
-    experiance: number;
+    experience: number;
 }
