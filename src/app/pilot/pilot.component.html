@@ -41,22 +41,51 @@
 <!--шаблон для редактирования-->
 <ng-template #editTemplate>
     <td>
-        <input type="text" [(ngModel)]="editedPilot.firstName" class="form-control" />
+      <div class="form-group">
+          <input type="text" [(ngModel)]="editedPilot.firstName" class="form-control" name="first" #first="ngModel" required/>
+          <div [hidden]="first.valid || first.untouched" class="alert alert-danger">
+            no first name specified
+          </div>
+      </div>
+    </td>
+
+    <td>
+        <div class="form-group">
+            <input type="text" [(ngModel)]="editedPilot.secondName" class="form-control" name="second" #second="ngModel" required/>
+            <div [hidden]="second.valid || second.untouched" class="alert alert-danger">
+              no second name specified
+            </div>
+        </div>
+    </td>
+
+    <td>
+        <div class="form-group">
+            <input type="text" [(ngModel)]="editedPilot.birthday" class="form-control" name="birth" #birth="ngModel" required/>
+            <div [hidden]="birth.valid || birth.untouched" class="alert alert-danger">
+              no birth date specified
+            </div>
+        </div>
+    </td>
+
+    <td>
+        <div class="form-group">
+            <input type="text" [(ngModel)]="editedPilot.experience" class="form-control" name="experience" #experience="ngModel" required  pattern="(100 | ([1-9][0-9][0-9])|([1-9][0-9])|[1-9])"/>
+            <div [hidden]="experience.valid || experience.untouched" class="alert alert-danger">
+              no experience specified
+            </div>
+        </div>
+    </td>
+
+    <td>
+        <div class="form-group">
+            <input type="text" [(ngModel)]="editedPilot.crewModelId" class="form-control" name="crwId" #crwId="ngModel" required pattern="(100 | ([1-9][0][0])|([1-9][0-9])|[1-9])"/>
+            <div [hidden]="crwId.valid || crwId.untouched" class="alert alert-danger">
+              no crew id specified
+            </div>
+        </div>
     </td>
     <td>
-        <input type="text" [(ngModel)]="editedPilot.secondName" class="form-control" />
-    </td>
-    <td>
-      <input type="text" [(ngModel)]="editedPilot.birthday" class="form-control" />
-    </td>
-    <td>
-      <input type="text" [(ngModel)]="editedPilot.experience" class="form-control" />
-    </td>
-    <td>
-      <input type="text" [(ngModel)]="editedPilot.crewModelId" class="form-control" />
-    </td>
-    <td>
-        <input type="button" value="Save" (click)="savePilot()" class="btn btn-success" />
+        <input type="button" [disabled]="first.invalid || second.invalid || birth.invalid || experience.invalid || crwId.invalid" value="Save" (click)="savePilot()" class="btn btn-success" />
     </td>
     <td>
         <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning" />

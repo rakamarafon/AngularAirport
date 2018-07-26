@@ -2,3 +2,6 @@ td {
     height: 50px;
     font-size: 14px;
 }
+
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}

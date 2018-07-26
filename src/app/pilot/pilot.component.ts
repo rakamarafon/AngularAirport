@@ -39,7 +39,7 @@ export class PilotComponent implements OnInit {
   }
 
   addPilot() {
-    this.editedPilot = new Pilot(0, 0, "", "", "", 0);
+    this.editedPilot = new Pilot(0, null, "", "", "", null);
     this.pilots.push(this.editedPilot);
     this.isNewRecord = true;
   }
@@ -60,7 +60,7 @@ export class PilotComponent implements OnInit {
     if (this.isNewRecord) {
         // добавляем пользователя
         this.serv.createPilot(this.editedPilot).subscribe(data => {
-            this.statusMessage = 'Данные успешно добавлены',
+            this.statusMessage = 'Successfully added',
             this.loadPilots();
         });
         this.isNewRecord = false;
@@ -68,7 +68,7 @@ export class PilotComponent implements OnInit {
     } else {
         // изменяем пользователя
         this.serv.updatePilot(this.editedPilot.id, this.editedPilot).subscribe(data => {
-            this.statusMessage = 'Данные успешно обновлены',
+            this.statusMessage = 'Successfully updated',
             this.loadPilots();
         });
         this.editedPilot = null;
