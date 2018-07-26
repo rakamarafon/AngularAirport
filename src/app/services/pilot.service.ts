@@ -4,25 +4,26 @@ import {Pilot} from 'src/app/pilot/pilot';
 import {Observable} from 'rxjs';
 
 @Injectable()
-export class UserService{
+export class PilotService{
    
     private url = 'http://localhost:5000/api/Pilots';
 
     constructor(private http: HttpClient){ }
       
-    getUsers(){
+    getPilots(){
         return this.http.get(this.url);
     }
   
-    createUser(pilot: Pilot){
+    createPilot(pilot: Pilot){
         return this.http.post(this.url, pilot); 
     }
-    updateUser(id: number, pilot: Pilot) {
-        const urlParams = new HttpParams().set("id", id.toString());
-        return this.http.put(this.url, pilot, { params: urlParams});
+    updatePilot(id: number, pilot: Pilot) {
+        //const urlParams = new HttpParams().set("id", id.toString());
+        debugger;
+        return this.http.put(this.url + "/" + id, pilot) //, { params: urlParams});
     }
-    deleteUser(id: number){
-        const urlParams = new HttpParams().set("id", id.toString());
-        return this.http.delete(this.url, { params: urlParams});
+    deletePilot(id: number){
+        //const urlParams = new HttpParams().set("id", id.toString());
+        return this.http.delete(this.url + "/" + id);  //, { params: urlParams});
     }
 }

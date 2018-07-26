@@ -1,55 +1,95 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, ViewChild, TemplateRef } from '@angular/core';
 import { Pilot } from './pilot'
 import {HttpClient} from '@angular/common/http';
 import { withBody } from '@angular/core/testing';
+import {PilotService} from 'src/app/services/pilot.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-pilot',
   templateUrl: './pilot.component.html',
-  styleUrls: ['./pilot.component.css']
+  styleUrls: ['./pilot.component.css'],
+  providers: [PilotService]
 })
 
 
 export class PilotComponent implements OnInit {
   
-  url = 'http://localhost:5000/api/Pilots';
-  pilots : Pilot[];
-
-  deletedPilot: Pilot;
-
-  constructor(private http: HttpClient) {   }
-
-  ngOnInit() {
-    this.getPilots();
-  }
-
-  getPilots() {
-   this.http.get<Pilot[]>(this.url).subscribe(result => {
-    this.pilots = result;
-    }, error => console.error(error));
+    @ViewChild('readOnlyTemplate') readOnlyTemplate: TemplateRef<any>;
+    @ViewChild('editTemplate') editTemplate: TemplateRef<any>;
+      
+    editedPilot: Pilot;
+    pilots: Array<Pilot>;
+    isNewRecord: boolean;
+    statusMessage: string;
+      
+    constructor(private serv: PilotService) {
+        this.pilots = new Array<Pilot>();
     }
-
-  delete(id: number)
-  {
-    this.http.delete<Pilot>(this.url + "/" + id).subscribe(result => {
-      this.deletedPilot  = result;
-      this.getPilots();      
-      }, error => console.error(error));      
+    
+    ngOnInit() {
+      this.loadPilots();
   }
 
-  update(id: number, pilot: Pilot)
-  {
-    console.log(pilot);
-      let body = {Id: pilot.id, firstName: "Trololo", secondName: pilot.secondName, birthDay: pilot.birthDay, experiance: pilot.experience, crewModelId: pilot.crewId};
-      console.log(body);
-      
-      
-      debugger;
-      //const body = {Id: pilot.id, FirstName: "angular firsth name", SecondName: "angular second name", BirthDay: "12.12.1222", Experiance: 100, CrewId: 29};
-      this.http.put<Pilot>(this.url + "/" + id, body).subscribe(result => {
-        this.deletedPilot  = result;
-        this.getPilots();      
-        }, error => console.error(error));      
+  private loadPilots() {
+    this.serv.getPilots().subscribe((data: Pilot[]) => {
+            this.pilots = data;  
+            debugger;
+        });
+  }
+
+  addPilot() {
+    this.editedPilot = new Pilot(0, 0, "", "", "", 0);
+    this.pilots.push(this.editedPilot);
+    this.isNewRecord = true;
+  }
+
+  editPilot(pilot: Pilot) {
+    this.editedPilot = new Pilot(pilot.id, pilot.crewModelId, pilot.firstName, pilot.secondName, pilot.birthday, pilot.experience);
+  }
+
+  loadTemplate(pilot: Pilot) {
+    if (this.editedPilot && this.editedPilot.id == pilot.id) {
+        return this.editTemplate;
+    } else {
+        return this.readOnlyTemplate;
+    }
+  }
+
+  savePilot() {
+    if (this.isNewRecord) {
+        // добавляем пользователя
+        this.serv.createPilot(this.editedPilot).subscribe(data => {
+            this.statusMessage = 'Данные успешно добавлены',
+            this.loadPilots();
+        });
+        this.isNewRecord = false;
+        this.editedPilot = null;
+    } else {
+        // изменяем пользователя
+        this.serv.updatePilot(this.editedPilot.id, this.editedPilot).subscribe(data => {
+            this.statusMessage = 'Данные успешно обновлены',
+            this.loadPilots();
+        });
+        this.editedPilot = null;
+    }
+  }
+
+  cancel() {
+    // если отмена при добавлении, удаляем последнюю запись
+    if (this.isNewRecord) {
+        this.pilots.pop();
+        this.isNewRecord = false;
+    }
+    this.editedPilot = null;
+  }
+  
+  // удаление пользователя
+  deletePilot(pilot: Pilot) {
+    this.serv.deletePilot(pilot.id).subscribe(data => {
+        this.statusMessage = 'Данные успешно удалены',
+        this.loadPilots();
+    });
   }
 }
 

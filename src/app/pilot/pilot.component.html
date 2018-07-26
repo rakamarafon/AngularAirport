@@ -1,24 +1,64 @@
-<button type="button" class="btn btn-primary btn-lg btn-block">Add new pilot</button>
-
-<p *ngIf="!pilots"><em>Loading...</em></p>
-
-<table class='table' *ngIf="pilots">
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Second Name</th>
-      <th>Birt date</th>
-      <th>experiance</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let pilot of pilots">
-      <td>{{ pilot.firstName }}</td>
-      <td>{{ pilot.secondName }}</td>
-      <td>{{ pilot.birthDay }}</td>
-      <td>{{ pilot.experience }}</td>
-      <td><button type="button" class="btn btn-outline-warning" (click)="update(pilot.id, pilot)">Update</button></td>
-      <td><button type="button" class="btn btn-outline-danger" (click)="delete(pilot.id)">Delete</button>  </td>
-    </tr>
-  </tbody>
+<h1>Pilots</h1>
+<button type="button" class="btn btn-primary btn-lg btn-block" (click)="addPilot()">Add new pilot</button>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>First name</td>
+            <td>SecondName</td>
+            <td>Birth date</td>
+            <td>Experience</td>
+            <td>Crew id</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pilot of pilots">
+            <ng-template [ngTemplateOutlet]="loadTemplate(pilot)" 
+                        [ngTemplateOutletContext]="{ $implicit: pilot}">
+            </ng-template>
+        </tr>
+    </tbody>
 </table>
+<div>{{statusMessage}}</div>
+   
+   
+<!--шаблон для чтения-->
+<ng-template #readOnlyTemplate let-pilot>
+    <td>{{pilot.firstName}}</td>
+    <td>{{pilot.secondName}}</td>
+    <td>{{pilot.birthday}}</td>
+    <td>{{pilot.experience}}</td>
+    <td>{{pilot.crewModelId}}</td>
+    <td>
+        <button type="button" class="btn btn-warning" (click)="editPilot(pilot)">Update</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger" (click)="deletePilot(pilot)">Delete</button>
+    </td>
+</ng-template>
+  
+<!--шаблон для редактирования-->
+<ng-template #editTemplate>
+    <td>
+        <input type="text" [(ngModel)]="editedPilot.firstName" class="form-control" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="editedPilot.secondName" class="form-control" />
+    </td>
+    <td>
+      <input type="text" [(ngModel)]="editedPilot.birthday" class="form-control" />
+    </td>
+    <td>
+      <input type="text" [(ngModel)]="editedPilot.experience" class="form-control" />
+    </td>
+    <td>
+      <input type="text" [(ngModel)]="editedPilot.crewModelId" class="form-control" />
+    </td>
+    <td>
+        <input type="button" value="Save" (click)="savePilot()" class="btn btn-success" />
+    </td>
+    <td>
+        <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning" />
+    </td>
+</ng-template>
