@@ -1,13 +1,19 @@
-<h1>Stewardesses</h1>
+
+<div class="form-group row">
+    <h1 class="col-6">Stewardesses</h1>
+    <div class="col-6" >
+        <input type="text" class="form-control search-query" ng-model="query" ng-change="search()" placeholder="Search">
+    </div>
+</div>
 <button type="button" class="btn btn-primary btn-lg btn-block" (click)="goToCreateStew()">Add new stewardesses</button>
 
 <table class="table table-hover">
     <thead>
         <tr class="tr-head">    
-            <td (click)="sortByName()">First name</td>            
-            <td>SecondName</td>
-            <td>Birth date</td>
-            <td>Crew id</td>
+            <td>First name <i (click)="sortByName()" id="arrows" class="fas fa-sort"></i></td>            
+            <td>SecondName <i (click)="sortBySecondName()" id="arrows" class="fas fa-sort"></i></td>
+            <td>Birth date <i (click)="sortByBirthDate()" id="arrows" class="fas fa-sort"></i></td>
+            <td>Crew id <i (click)="sortByCrew()" id="arrows" class="fas fa-sort"></i></td>
         </tr>
     </thead>
     <tbody>

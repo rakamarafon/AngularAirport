@@ -101,7 +101,7 @@
                           <div class="form-group row">
                             <label for="birth" class="col-4 col-form-label">Birth date</label> 
                             <div class="col-8">
-                              <input id="text" [(ngModel)]="stew.birthDay" name="birth" class="form-control here" type="text" #birth="ngModel" required>
+                              <input id="text" [(ngModel)]="editStew.birthDay" name="birth" class="form-control here" type="text" #birth="ngModel" required>
                               <div [hidden]="birth.valid || birth.untouched" class="alert alert-danger">
                                   no birth date specified
                               </div>

@@ -14,10 +14,17 @@ export class StewardessesComponent implements OnInit {
   stewardesses: Array<Stewardesses>;
   isNewRecord: boolean;
   isSortByName: boolean;
+  isSortSecondName: boolean;
+  isSortByBirthDate: boolean;
+  isSortByCrew: boolean;
+
 
   constructor(private serv: StewardessesService, public router: Router) { 
     this.stewardesses = new Array<Stewardesses>();
     this.isSortByName = false;
+    this.isSortSecondName = false;
+    this.isSortByBirthDate = false;
+    this.isSortByCrew = false;
   }
 
   ngOnInit() {
@@ -56,4 +63,53 @@ private loadStewardesses() {
       this.isSortByName = true;
     }    
   } 
+
+  sortBySecondName(){
+    if(this.isSortSecondName){
+      this.stewardesses.sort(function (a, b) {
+        if (a.secondName > b.secondName) {
+          return 1;
+        }
+        if (a.secondName < b.secondName) {
+          return -1;
+        }
+        return 0;
+      });
+      this.isSortSecondName = false;
+    } else {
+      this.stewardesses.reverse();
+      this.isSortSecondName = true;
+    }    
+  } 
+
+  sortByBirthDate(){
+    if(this.isSortByBirthDate){
+      this.stewardesses.sort(function (a, b) {
+        if (a.birthDay > b.birthDay) {
+          return 1;
+        }
+        if (a.birthDay < b.birthDay) {
+          return -1;
+        }
+        return 0;
+      });
+      this.isSortByBirthDate = false;
+    } else {
+      this.stewardesses.reverse();
+      this.isSortByBirthDate = true;
+    }    
+  }
+  
+  sortByCrew(){
+    if(this.isSortByCrew){
+      this.stewardesses.sort(function(a, b) {
+        return a.crewModelId - b.crewModelId;
+      });
+      this.isSortByCrew = false;
+    } else {
+      this.stewardesses.reverse();
+      this.isSortByCrew = true;
+    }    
+  }
+
 }
