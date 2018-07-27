@@ -13,9 +13,11 @@ export class StewardessesComponent implements OnInit {
 
   stewardesses: Array<Stewardesses>;
   isNewRecord: boolean;
+  isSortByName: boolean;
 
   constructor(private serv: StewardessesService, public router: Router) { 
     this.stewardesses = new Array<Stewardesses>();
+    this.isSortByName = false;
   }
 
   ngOnInit() {
@@ -37,4 +39,23 @@ private loadStewardesses() {
     this.router.navigate(['/stewDetail', new Stewardesses(0, null, "","","")]);
   }
 
+  sortByName(){
+    debugger;
+    if(this.isSortByName){
+      debugger;
+      this.stewardesses.sort(function (a, b) {
+        if (a.firstName > b.firstName) {
+          return 1;
+        }
+        if (a.firstName < b.firstName) {
+          return -1;
+        }
+        return 0;
+      });
+      this.isSortByName = false;
+    } else {
+      this.stewardesses.reverse();
+      this.isSortByName = true;
+    }    
+  } 
 }
