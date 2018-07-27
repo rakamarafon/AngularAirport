@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { PilotComponent } from './pilot/pilot.component';
@@ -15,6 +16,7 @@ import { DepartureComponent } from './departure/departure.component';
 import { FlightComponent } from './flight/flight.component';
 import { AircraftComponent } from './aircraft/aircraft.component';
 import { AirtypeComponent } from './airtype/airtype.component';
+import { StewardessesDetailComponent } from './stewardesses/stewardesses-detail/stewardesses-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { AirtypeComponent } from './airtype/airtype.component';
     DepartureComponent,
     FlightComponent,
     AircraftComponent,
-    AirtypeComponent
+    AirtypeComponent,
+    StewardessesDetailComponent
   ],
   imports: [
     BrowserModule,

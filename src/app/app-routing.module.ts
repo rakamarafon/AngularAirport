@@ -11,11 +11,13 @@ import { FlightComponent } from './flight/flight.component';
 import { AircraftComponent } from './aircraft/aircraft.component';
 import { AirtypeComponent } from './airtype/airtype.component';
 import { AppComponent } from './app.component';
+import { StewardessesDetailComponent } from './stewardesses/stewardesses-detail/stewardesses-detail.component';
 
 const routes: Routes = [
   {path: '', component: AppComponent},
   {path: 'pilots', component: PilotComponent}, 
   {path: 'stewardesses', component: StewardessesComponent},
+  {path: 'stewDetail', component: StewardessesDetailComponent},
   {path: 'crews', component: CrewComponent},
   {path: 'tickets', component: TicketComponent},
   {path: 'departures', component: DepartureComponent},
