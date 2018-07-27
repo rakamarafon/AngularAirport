@@ -19,7 +19,6 @@ export class StewardessesService{
     }
     updateStewardesses(id: number, stewardesses: Stewardesses) {
         //const urlParams = new HttpParams().set("id", id.toString());
-        debugger;
         return this.http.put(this.url + "/" + id, stewardesses) //, { params: urlParams});
     }
     deleteStewardesses(id: number){

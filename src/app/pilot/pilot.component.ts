@@ -39,7 +39,7 @@ export class PilotComponent implements OnInit {
   }
 
   addPilot() {
-    this.editedPilot = new Pilot(0, null, "", "", "", null);
+    this.editedPilot = new Pilot(null, null, "", "", "", null);
     this.pilots.push(this.editedPilot);
     this.isNewRecord = true;
   }

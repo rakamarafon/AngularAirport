@@ -27,7 +27,7 @@
 <ng-template #readOnlyTemplate let-pilot>
     <td>{{pilot.firstName}}</td>
     <td>{{pilot.secondName}}</td>
-    <td>{{pilot.birthday}}</td>
+    <td>{{pilot.birthday | date}}</td>
     <td>{{pilot.experience}}</td>
     <td>{{pilot.crewModelId}}</td>
     <td>
