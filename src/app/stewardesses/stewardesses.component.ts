@@ -40,9 +40,7 @@ private loadStewardesses() {
   }
 
   sortByName(){
-    debugger;
     if(this.isSortByName){
-      debugger;
       this.stewardesses.sort(function (a, b) {
         if (a.firstName > b.firstName) {
           return 1;
