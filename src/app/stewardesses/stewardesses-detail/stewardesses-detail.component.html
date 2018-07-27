@@ -1,5 +1,12 @@
 <h1>Stewardesses detail info</h1>
 
+<button type="button" class="mb-xs btn btn-outline-secondary" (click)="back()">Back</button>
+
+<ng-template [ngTemplateOutlet]="loadTemplate(stew)" 
+             [ngTemplateOutletContext]="{ $implicit: stew}">
+</ng-template>
+
+<ng-template #readOnlyTemplate let-stew>
 <div class="card">
     <div class="card-body">
         <div class="row">
@@ -14,41 +21,39 @@
                       <div class="form-group row">
                         <label for="userid" class="col-4 col-form-label">Id</label> 
                         <div class="col-8">
-                          <input id="username" [(ngModel)]="stew.id" name="userid" class="form-control here" disabled>
+                          <input id="username" value="{{stew.id}}" name="userid" class="form-control here" disabled>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="name" class="col-4 col-form-label">First Name</label> 
                         <div class="col-8">
-                          <input id="name" [(ngModel)]="stew.firstName" name="name" class="form-control here" type="text">
+                          <input id="name" value="{{stew.firstName}}" name="name" class="form-control here" type="text">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="lastname" class="col-4 col-form-label">Last Name</label> 
                         <div class="col-8">
-                          <input id="lastname" [(ngModel)]="stew.secondName" name="lastname" class="form-control here" type="text">
+                          <input id="lastname" value="{{stew.secondName}}" name="lastname" class="form-control here" type="text">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="birth" class="col-4 col-form-label">Birth date</label> 
                         <div class="col-8">
-                          <input id="text" [(ngModel)]="stew.birthdate" name="birth" class="form-control here" type="text">
+                          <input id="text" value="{{stew.Birthdate}}" name="birth" class="form-control here" type="text">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="crew" class="col-4 col-form-label">Crew Id</label> 
                         <div class="col-8">
-                            <input id="text" [(ngModel)]="stew.crewModelId" name="crew" class="form-control here" type="text">
+                            <input id="text" value="{{stew.crewModelId}}" name="crew" class="form-control here" type="text">
                         </div>
                       </div>
                       
                      
-                      <div class="form-group row">
-                        <div class="offset-4 col-8">
-                          <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
-                        </div>
-                        <div class="offset-10 col-8">
-                            <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                      <div class="form-group row">                          
+                        <div class="offset-10 col-8" >
+                                <button id="updateButton" type="button" class="btn btn-primary btn-lg">Update</button>
+                                <button id="deletebutton" type="button" class="btn btn-danger btn-lg" (click)="deleteStewardesses(stew)">Delete</button>
                         </div>
                       </div>
 
@@ -58,3 +63,5 @@
         
     </div>
 </div>
+</ng-template>
+

@@ -17,6 +17,8 @@ import { FlightComponent } from './flight/flight.component';
 import { AircraftComponent } from './aircraft/aircraft.component';
 import { AirtypeComponent } from './airtype/airtype.component';
 import { StewardessesDetailComponent } from './stewardesses/stewardesses-detail/stewardesses-detail.component';
+import { StewardessesService } from './services/stewardesses.service';
+import { PilotService } from './services/pilot.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,7 @@ import { StewardessesDetailComponent } from './stewardesses/stewardesses-detail/
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [StewardessesService, PilotService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
